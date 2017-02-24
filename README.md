@@ -1,10 +1,10 @@
 # fetch-request
 
 > 基于fetch封装的ajax组件
-
+使用application/x-www-form-urlencoded方式提交
 ## 使用
 ``````
-import {setConfig} from './fetch-request'
+import {setConfig, get, post, del, patch, put} from 'fetch-request'
 setConfig({
   apiHost: 'http://www.baidu.com/',
   options: {
@@ -29,5 +29,10 @@ setConfig({
       throw error
     }
   }
+})
+
+
+get('user/info', {id: 123}).then(data => {
+  console.log(data)
 })
 ``````

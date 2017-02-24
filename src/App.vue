@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import {get} from './fetch-request'
+import {post} from './fetch-request'
 export default {
   created() {
-    get('ajax', {
+    post('ajax', {
       name: '张三',
       age: 18,
       clazz: {

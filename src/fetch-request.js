@@ -1,5 +1,6 @@
 import 'whatwg-fetch'
 import isArray from 'lodash/isArray'
+
 // 注册钩子
 let globalConfig = {
   // api地址
@@ -14,6 +15,37 @@ let globalConfig = {
   reqHandle() {},
   // 请求后处理
   respHandle() {}
+}
+
+// 发送请求
+const request = (url, _options = {}) => {
+  const {apiHost, options, headers, reqHandle, respHandle, errHandle} = globalConfig
+  return new Promise((resolve, reject) => {
+    _options = Object.assign({}, _options, options, {headers: Object.assign({}, _options.headers || {}, headers)})
+    url = `${apiHost}${url}`
+    reqHandle(url, _options)
+    /* eslint-disable no-undef  */
+    fetch(url, _options)
+    .then(checkInternalStatus)
+    .then(resp => resp.json())
+    .then(respHandle)
+    .then(data => resolve(data))
+    .catch(err => {
+      errHandle(String(err))
+      reject(err)
+    })
+  })
+}
+
+// 内部状态转换
+const checkInternalStatus = resp => {
+  if (resp.status >= 200 && resp.status < 300) {
+    return resp
+  } else {
+    const error = new Error(resp.statusText)
+    error.resp = resp
+    throw error
+  }
 }
 
 // 将参数转换为queryStr
@@ -55,42 +87,6 @@ const flatPath = (obj, paths = []) => {
     })
   }
   return values
-}
-
-// 内部状态转换
-const checkInternalStatus = resp => {
-  if (resp.status >= 200 && resp.status < 300) {
-    return resp
-  } else {
-    const error = new Error(resp.statusText)
-    error.resp = resp
-    throw error
-  }
-}
-
-// 发送请求
-const request = (url, _options = {}) => {
-  return new Promise((resolve, reject) => {
-    const {apiHost, options, headers, reqHandle, respHandle, errHandle} = globalConfig
-    if (!_options.headers) {
-      _options.headers = {}
-    }
-    _options = Object.assign({}, _options, options, {headers})
-    url = `${apiHost}${url}`
-    reqHandle(url, _options)
-    /* eslint-disable no-undef  */
-    fetch(url, _options)
-    .then(checkInternalStatus)
-    .then(resp => resp.json())
-    .then(respHandle)
-    .then(data => resolve(data))
-    .catch(err => {
-      if (errHandle) {
-        errHandle(String(err))
-      }
-      reject(err)
-    })
-  })
 }
 
 // post
