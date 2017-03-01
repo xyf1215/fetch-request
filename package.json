@@ -1,6 +1,6 @@
 {
   "name": "fetch-request",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "main": "dist/fetch-request.js",
   "description": "基于fetch封装的ajax组件",
   "author": "xyf1215 <yunfeng.xi@qq.com>",

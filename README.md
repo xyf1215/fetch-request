@@ -10,6 +10,7 @@ setConfig({
   options: {
     credentials: 'include'
   },
+  cache: true, //默认缓存
   headers: {
     Accept: 'application/json'
   },

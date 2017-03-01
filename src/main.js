@@ -9,6 +9,7 @@ setConfig({
   options: {
     credentials: 'include'
   },
+  cache: false,
   headers: {
     Accept: 'application/json'
   },

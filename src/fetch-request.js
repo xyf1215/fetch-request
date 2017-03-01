@@ -9,6 +9,8 @@ let globalConfig = {
   options: {},
   // 头信息
   headers: {},
+  // 缓存
+  cache: true,
   // 错误处理
   errHandle() {},
   // 请求前处理
@@ -104,7 +106,9 @@ const post = (url, params = {}) => {
 
 // get
 const get = (url, params = {}) => {
-  params['__ts__'] = new Date().getTime()
+  if (!globalConfig.cache) {
+    params['__ts__'] = new Date().getTime()
+  }
   const queryStr = toQueryStr(params)
   const options = {
     method: 'GET'
