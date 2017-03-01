@@ -16,7 +16,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('bundle.js'),
+    filename: utils.assetsPath('fetch-request.js'),
     libraryTarget: 'umd',
     umdNamedDefine: true
   },

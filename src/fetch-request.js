@@ -104,6 +104,7 @@ const post = (url, params = {}) => {
 
 // get
 const get = (url, params = {}) => {
+  params['__ts__'] = new Date().getTime()
   const queryStr = toQueryStr(params)
   const options = {
     method: 'GET'

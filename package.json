@@ -1,7 +1,7 @@
 {
   "name": "fetch-request",
-  "version": "1.0.3",
-  "main": "dist/bundle.js",
+  "version": "1.0.4",
+  "main": "dist/fetch-request.js",
   "description": "基于fetch封装的ajax组件",
   "author": "xyf1215 <yunfeng.xi@qq.com>",
   "scripts": {
